@@ -127,12 +127,12 @@ function App() {
         >
           🔥 Trending Collections
         </button>
-        <button 
+        {/* <button 
           className={activeTab === 'portfolio' ? 'tab active' : 'tab'}
           onClick={() => handleTabChange('portfolio')}
         >
           💼 Portfolio Tracker
-        </button>
+        </button> */}
       </div>
 
       {activeTab === 'collections' && (
