@@ -1,5 +1,5 @@
 const MAGIC_EDEN_API_KEY = import.meta.env.VITE_MAGIC_EDEN_API_KEY;
-const MAGIC_EDEN_BASE_URL = import.meta.env.DEV ? '/api/magiceden' : 'https://api-mainnet.magiceden.dev/v3/rtp/ethereum';
+const MAGIC_EDEN_BASE_URL = import.meta.env.DEV ? '/api/magiceden' : '/api/magiceden';
 
 // Monad-related keywords for filtering collections
 const MONAD_KEYWORDS = [
@@ -12,7 +12,7 @@ export const monadAPI = {
   // Get real collections from Magic Eden
   async getCollections(limit = 20, continuationToken = null) {
     try {
-      let url = `${MAGIC_EDEN_BASE_URL}/collections/v7?includeMintStages=false&includeSecurityConfigs=false&normalizeRoyalties=false&useNonFlaggedFloorAsk=false&sortBy=allTimeVolume&limit=${limit}`;
+      let url = `${MAGIC_EDEN_BASE_URL}/collections?includeMintStages=false&includeSecurityConfigs=false&normalizeRoyalties=false&useNonFlaggedFloorAsk=false&sortBy=allTimeVolume&limit=${limit}`;
       
       if (continuationToken) {
         url += `&continuation=${continuationToken}`;
@@ -20,12 +20,7 @@ export const monadAPI = {
       
       console.log('Fetching collections from:', url);
       
-      const response = await fetch(url, {
-        headers: {
-          'Authorization': `Bearer ${MAGIC_EDEN_API_KEY}`,
-          'accept': '*/*'
-        }
-      });
+      const response = await fetch(url);
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
@@ -80,13 +75,7 @@ export const monadAPI = {
   async getTrendingCollections(period = '1d', limit = 20, offset = 0) {
     try {
       const response = await fetch(
-        `${MAGIC_EDEN_BASE_URL}/collections/trending/v1?period=${period}&limit=${limit}&offset=${offset}&sortBy=sales&normalizeRoyalties=false&useNonFlaggedFloorAsk=false`,
-        {
-          headers: {
-            'Authorization': `Bearer ${MAGIC_EDEN_API_KEY}`,
-            'accept': '*/*'
-          }
-        }
+        `${MAGIC_EDEN_BASE_URL}/trending?period=${period}&limit=${limit}&offset=${offset}&sortBy=sales&normalizeRoyalties=false&useNonFlaggedFloorAsk=false`
       );
       
       if (!response.ok) {
