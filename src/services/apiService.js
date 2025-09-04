@@ -1,4 +1,4 @@
-const MAGIC_EDEN_API_KEY = process.env.REACT_APP_MAGIC_EDEN_API_KEY;
+const MAGIC_EDEN_API_KEY = import.meta.env.VITE_MAGIC_EDEN_API_KEY;
 const MAGIC_EDEN_BASE_URL = 'https://api-mainnet.magiceden.dev/v3/rtp/ethereum';
 
 // Monad-related keywords for filtering collections
@@ -251,8 +251,9 @@ export const monadAPI = {
   // Get real Etherscan transaction data
   async getEtherscanStats(address) {
     try {
+      const etherscanKey = import.meta.env.VITE_ETHERSCAN_API_KEY || 'YourApiKeyToken';
       const response = await fetch(
-        `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=1000&sort=desc&apikey=YourApiKeyToken`
+        `https://api.etherscan.io/api?module=account&action=txlist&address=${address}&startblock=0&endblock=99999999&page=1&offset=1000&sort=desc&apikey=${etherscanKey}`
       );
       
       if (response.ok) {
@@ -285,8 +286,9 @@ export const monadAPI = {
   // Get real Alchemy NFT data
   async getAlchemyStats(address) {
     try {
+      const alchemyKey = import.meta.env.VITE_ALCHEMY_API_KEY || 'demo';
       const response = await fetch(
-        `https://eth-mainnet.g.alchemy.com/v2/demo/getNFTs?owner=${address}&withMetadata=true`
+        `https://eth-mainnet.g.alchemy.com/v2/${alchemyKey}/getNFTs?owner=${address}&withMetadata=true`
       );
       
       if (response.ok) {
@@ -312,11 +314,12 @@ export const monadAPI = {
   // Get Moralis wallet data
   async getMoralisStats(address) {
     try {
+      const moralisKey = import.meta.env.VITE_MORALIS_API_KEY || 'demo';
       const response = await fetch(
         `https://deep-index.moralis.io/api/v2/${address}/balance?chain=eth`,
         {
           headers: {
-            'X-API-Key': 'demo'
+            'X-API-Key': moralisKey
           }
         }
       );

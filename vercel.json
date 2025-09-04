@@ -1,5 +1,5 @@
 {
-  "buildCommand": "npx react-scripts build",
-  "outputDirectory": "build",
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "installCommand": "npm install"
 }
