@@ -1,5 +1,5 @@
 const MAGIC_EDEN_API_KEY = import.meta.env.VITE_MAGIC_EDEN_API_KEY;
-const MAGIC_EDEN_BASE_URL = 'https://api-mainnet.magiceden.dev/v3/rtp/ethereum';
+const MAGIC_EDEN_BASE_URL = import.meta.env.DEV ? '/api/magiceden' : 'https://api-mainnet.magiceden.dev/v3/rtp/ethereum';
 
 // Monad-related keywords for filtering collections
 const MONAD_KEYWORDS = [
